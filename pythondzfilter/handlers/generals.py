@@ -16,10 +16,12 @@ available_food_size = ['big', 'middle', 'little']
 available_drinks_name = ['kvas', 'coffee', 'tea']
 available_drinks_size = ['big', 'middle', 'little']
 
+
 @router.message(Command('food'))
 async def cmd_food(message: Message, state: FSMContext):
     await message.answer('choose', reply_markup=make_row_keyboard(available_food_name))
     await state.set_state(ChooseFood.food_name)
+
 
 @router.message(
     ChooseFood.food_name,
@@ -29,6 +31,7 @@ async def choose_food_cmd(message: Message, state: FSMContext):
     await state.update_data(choosen_food=message.text)
     await message.answer('okay porcia', reply_markup=make_row_keyboard(available_food_size))
     await state.set_state(ChooseFood.food_size)
+
 
 @router.message(
     ChooseFood.food_size,
